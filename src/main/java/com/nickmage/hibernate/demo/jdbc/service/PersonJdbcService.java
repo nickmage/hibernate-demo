@@ -17,4 +17,8 @@ public class PersonJdbcService {
     public List<Person> getAll(){
         return personJdbcDao.findAll();
     }
+
+    public Person getById(int id){
+        return personJdbcDao.findById(id);
+    }
 }

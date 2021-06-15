@@ -3,6 +3,7 @@ package com.nickmage.hibernate.demo.jdbc.controller;
 import com.nickmage.hibernate.demo.jdbc.model.Person;
 import com.nickmage.hibernate.demo.jdbc.service.PersonJdbcService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,5 +19,10 @@ public class JdbcController {
     @GetMapping("/persons")
     public List<Person> getAll() {
         return personJdbcService.getAll();
+    }
+
+    @GetMapping("/persons/{id}")
+    public Person getById(@PathVariable int id) {
+        return personJdbcService.getById(id);
     }
 }

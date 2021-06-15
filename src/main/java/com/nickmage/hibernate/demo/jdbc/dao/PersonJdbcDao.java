@@ -1,7 +1,6 @@
 package com.nickmage.hibernate.demo.jdbc.dao;
 
 import com.nickmage.hibernate.demo.jdbc.model.Person;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -13,16 +12,25 @@ public class PersonJdbcDao {
 
     private final JdbcTemplate jdbcTemplate;
 
+    private final RowMapper<Person> rowMapper = (resultSet, rowNumber) -> {
+        Person person = new Person();
+        person.setId(resultSet.getInt("id"));
+        person.setName(resultSet.getString("name"));
+        person.setLocation(resultSet.getString("location"));
+        person.setBirthDate(resultSet.getTimestamp("birth_date").toLocalDateTime().toLocalDate());
+        return person;
+    };
+
     public PersonJdbcDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<Person> findAll() {
-        return jdbcTemplate.query("select * from person", new BeanPropertyRowMapper<>(Person.class));
+        return jdbcTemplate.query("select * from person order by id asc", rowMapper);
     }
 
     public Person findById(int id) {
-        return jdbcTemplate.queryForObject("select * from person where id = ?", new BeanPropertyRowMapper<>(Person.class), id);
+        return jdbcTemplate.queryForObject("select * from person where id = ?", rowMapper, id);
     }
 
     public void create(Person person) {

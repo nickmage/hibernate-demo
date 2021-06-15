@@ -21,4 +21,16 @@ public class PersonJdbcService {
     public Person getById(int id){
         return personJdbcDao.findById(id);
     }
+
+    public void create(Person person) {
+        personJdbcDao.create(person);
+    }
+
+    public void update(int id, Person person) {
+        personJdbcDao.update(id, person);
+    }
+
+    public int deleteById(int id) {
+        return personJdbcDao.deleteById(id);
+    }
 }

@@ -1,14 +1,21 @@
-package com.nickmage.hibernate.demo.jpa.dao;
+package com.nickmage.hibernate.demo.jpa.repository;
 
 import com.nickmage.hibernate.demo.jpa.model.Person;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public class PersonJpaDao {
+@Transactional //Better to use it on a business logic services
+public class PersonJpaRepository {
+
+    @PersistenceContext
+    private final EntityManager entityManager;
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -21,7 +28,8 @@ public class PersonJpaDao {
         return person;
     };
 
-    public PersonJpaDao(JdbcTemplate jdbcTemplate) {
+    public PersonJpaRepository(EntityManager entityManager, JdbcTemplate jdbcTemplate) {
+        this.entityManager = entityManager;
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -30,7 +38,7 @@ public class PersonJpaDao {
     }
 
     public Person findById(int id) {
-        return jdbcTemplate.queryForObject("select * from person where id = ?", rowMapper, id);
+        return entityManager.find(Person.class, id);
     }
 
     public void create(Person person) {

@@ -34,14 +34,12 @@ public class PersonJpaController {
 
     @PostMapping
     public Person createPerson(@RequestBody Person person) {
-        personJpaService.create(person);
-        return person;
+        return personJpaService.create(person);
     }
 
     @PutMapping("/{id}")
     public Person updatePerson(@PathVariable int id, @RequestBody Person person) {
-        personJpaService.update(id, person);
-        return person;
+        return personJpaService.update(id, person);
     }
 
     @DeleteMapping("/{id}")

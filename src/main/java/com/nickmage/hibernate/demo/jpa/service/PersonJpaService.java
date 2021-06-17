@@ -22,15 +22,16 @@ public class PersonJpaService {
         return personJpaRepository.findById(id);
     }
 
-    public void create(Person person) {
-        personJpaRepository.create(person);
+    public Person create(Person person) {
+        return personJpaRepository.save(person);
     }
 
-    public void update(int id, Person person) {
-        personJpaRepository.update(id, person);
+    public Person update(int id, Person person) {
+        person.setId(id);
+        return personJpaRepository.save(person);
     }
 
-    public int deleteById(int id) {
-        return personJpaRepository.deleteById(id);
+    public void deleteById(int id) {
+        personJpaRepository.deleteById(id);
     }
 }

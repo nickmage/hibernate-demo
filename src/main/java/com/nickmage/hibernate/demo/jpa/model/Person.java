@@ -3,10 +3,13 @@ package com.nickmage.hibernate.demo.jpa.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
+@NamedQueries({@NamedQuery(name = "findAll", query = "select p from Person p order by p.id desc")})
 @Table(name = "person")
 public class Person {
     @Id

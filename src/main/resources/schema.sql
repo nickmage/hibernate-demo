@@ -1,4 +1,4 @@
-create table person
+/*create table person
 (
     id         integer      not null,
     name       varchar(255) not null,
@@ -12,4 +12,13 @@ values (100001, 'Kolia', 'Kherson', sysdate());
 insert into person (id, name, location, birth_date)
 values (100002, 'Mykola', 'Kharkiv', sysdate());
 insert into person (id, name, location, birth_date)
-values (100003, 'Nickolay', 'Kyiv', sysdate());
+values (100003, 'Nickolay', 'Kyiv', sysdate());*/
+
+create table course
+(
+    id   bigint primary key,
+    name varchar(255) not null
+);
+
+insert into course (id, name)
+values (1001, 'Math');

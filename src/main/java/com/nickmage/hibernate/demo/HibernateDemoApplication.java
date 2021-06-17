@@ -6,7 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 
 @SpringBootApplication
-@ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.nickmage.hibernate.demo.jdbc.*"))
+@ComponentScan(excludeFilters = {@ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.nickmage.hibernate.demo.jdbc.*"),
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.nickmage.hibernate.demo.jpa.*")})
 public class HibernateDemoApplication {
 
     public static void main(String[] args) {

@@ -1,6 +1,6 @@
 package com.nickmage.hibernate.demo.jpa.repository;
 
-import com.nickmage.hibernate.demo.jpa.model.Person;
+import com.nickmage.hibernate.demo.jpa.entity.Person;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

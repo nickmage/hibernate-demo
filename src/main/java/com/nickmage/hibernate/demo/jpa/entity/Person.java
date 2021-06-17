@@ -1,4 +1,4 @@
-package com.nickmage.hibernate.demo.jpa.model;
+package com.nickmage.hibernate.demo.jpa.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
-@Entity
+//@Entity
 @NamedQueries({@NamedQuery(name = "findAll", query = "select p from Person p order by p.id desc")})
 @Table(name = "person")
 public class Person {

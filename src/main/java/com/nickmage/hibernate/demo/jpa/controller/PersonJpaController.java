@@ -1,6 +1,6 @@
 package com.nickmage.hibernate.demo.jpa.controller;
 
-import com.nickmage.hibernate.demo.jpa.model.Person;
+import com.nickmage.hibernate.demo.jpa.entity.Person;
 import com.nickmage.hibernate.demo.jpa.service.PersonJpaService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

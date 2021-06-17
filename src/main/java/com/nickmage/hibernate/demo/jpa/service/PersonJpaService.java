@@ -1,7 +1,7 @@
 package com.nickmage.hibernate.demo.jpa.service;
 
 import com.nickmage.hibernate.demo.jpa.repository.PersonJpaRepository;
-import com.nickmage.hibernate.demo.jpa.model.Person;
+import com.nickmage.hibernate.demo.jpa.entity.Person;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

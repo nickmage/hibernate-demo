@@ -18,7 +18,7 @@ public class CourseRepositoryTest {
     private CourseRepository courseRepository;
 
     @Test
-    void shouldReturn() {
+    void shouldFindCourse() {
         Course actual = new Course("Math");
         actual.setId(PRE_SAVED_ID);
 
@@ -26,7 +26,7 @@ public class CourseRepositoryTest {
     }
 
     @Test
-    void contextLoads() {
+    void shouldNotReturnCourse() {
         Long id = 1L;
         Course actual = new Course("Math");
         actual.setId(id);

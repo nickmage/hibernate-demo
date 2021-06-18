@@ -3,6 +3,7 @@ package com.nickmage.hibernate.demo.hibernate.service;
 import com.nickmage.hibernate.demo.hibernate.entity.Course;
 import com.nickmage.hibernate.demo.hibernate.repository.CourseRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class CourseService {
         return courseRepository.save(course);
     }
 
+    @Transactional
     public void deleteById(Long id) {
         courseRepository.deleteById(id);
     }

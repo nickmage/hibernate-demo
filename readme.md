@@ -9,4 +9,8 @@
     3. Detached (has an identifier, removed from persistence context).
     4. Removed (entity has an identifier, scheduled for removal from the DB).
    ![img.png](https://i.stack.imgur.com/CpfAe.png)
-6. 
+6. EntityManager.flush() sends all changes to the database before the transaction is committed.
+7. EntityManager.detach() makes entity detached and removes from persistence context, so we need to merge() it to save changes after detach() invocation.
+8. EntityManager.clear() clears the entire persistence context making all entities detached.
+9. EntityManager.refresh() fetches data from the database and override existing entity state.
+10. 

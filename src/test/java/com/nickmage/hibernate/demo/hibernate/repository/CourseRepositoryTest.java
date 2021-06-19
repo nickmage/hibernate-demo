@@ -16,13 +16,15 @@ public class CourseRepositoryTest {
     private static final Long PRE_SAVED_ID_TO_FIND = 1001L;
     private static final Long PRE_SAVED_ID_TO_UPDATE = 1002L;
     private static final Long PRE_SAVED_ID_TO_DELETE = 1003L;
+    private static final String COURSE_NAME_TO_FIND = "Math";
+    private static final String COURSE_NAME_TO_SAVE = "Art";
 
     @Autowired
     private CourseRepository courseRepository;
 
     @Test
     void shouldFindCourse() {
-        Course actual = new Course("Math");
+        Course actual = new Course(COURSE_NAME_TO_FIND);
         actual.setId(PRE_SAVED_ID_TO_FIND);
 
         assertThat(courseRepository.findById(PRE_SAVED_ID_TO_FIND), is(actual));
@@ -31,10 +33,29 @@ public class CourseRepositoryTest {
     @Test
     void shouldNotReturnCourse() {
         Long id = 1L;
-        Course actual = new Course("Math");
+        Course actual = new Course(COURSE_NAME_TO_FIND);
         actual.setId(id);
 
         assertThat(courseRepository.findById(id), is(nullValue()));
+    }
+
+    @Test
+    @Transactional
+    void shouldCreateCourse() {
+        Course courseToCreate = new Course(COURSE_NAME_TO_SAVE);
+        courseRepository.save(courseToCreate);
+
+        assertThat(courseRepository.findById(1L), is(courseToCreate));
+    }
+
+    @Test
+    @Transactional
+    void shouldUpdateCourse() {
+        Course courseToUpdate = courseRepository.findById(PRE_SAVED_ID_TO_UPDATE);
+        courseToUpdate.setName(COURSE_NAME_TO_SAVE);
+        //courseRepository.save(courseToUpdate);
+
+        assertThat(courseRepository.findById(PRE_SAVED_ID_TO_UPDATE), is(courseToUpdate));
     }
 
     @Test

@@ -15,7 +15,7 @@ public class CourseRepository {
         this.entityManager = entityManager;
     }
 
-    public List<Course> findAll () {
+    public List<Course> findAll() {
         return null;
     }
 
@@ -24,7 +24,12 @@ public class CourseRepository {
     }
 
     public Course save(Course course) {
-        return entityManager.merge(course);
+        if (course.getId() == null) {
+            entityManager.persist(course);
+        } else {
+            course = entityManager.merge(course);
+        }
+        return course;
     }
 
     public void deleteById(Long id) {

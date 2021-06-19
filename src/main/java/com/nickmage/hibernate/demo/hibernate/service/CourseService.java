@@ -24,10 +24,12 @@ public class CourseService {
         return courseRepository.findById(id);
     }
 
+    @Transactional
     public Course create(Course person) {
         return courseRepository.save(person);
     }
 
+    @Transactional
     public Course update(Long id, Course course) {
         course.setId(id);
         return courseRepository.save(course);

@@ -47,6 +47,22 @@ public class Course {
         this.name = name;
     }
 
+    public LocalDateTime getLastUpdatedAt() {
+        return lastUpdatedAt;
+    }
+
+    public void setLastUpdatedAt(LocalDateTime lastUpdatedAt) {
+        this.lastUpdatedAt = lastUpdatedAt;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

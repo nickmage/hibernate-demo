@@ -17,7 +17,7 @@ public class CourseRepository {
     }
 
     public List<Course> findAll() {
-        return null;
+        return entityManager.createQuery("select c from Course c", Course.class).getResultList();
     }
 
     public Course findById(Long id) {

@@ -21,6 +21,10 @@ public class CourseRepository {
     }
 
     public Course findById(Long id) {
+        //Alternative findById query
+        /*Query query = entityManager.createNativeQuery("select * from course where id = ?/:id", Course.class);
+        Query.setParameter(1/"id", 1001L);
+        return query.getResultList();*/
         return entityManager.find(Course.class, id);
     }
 

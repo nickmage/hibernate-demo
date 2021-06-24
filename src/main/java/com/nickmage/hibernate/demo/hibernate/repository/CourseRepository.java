@@ -44,14 +44,15 @@ public class CourseRepository {
     @Transactional
     public void implicitUpdate() {
         Course course1 = new Course("Test course 1");
+        //Make entity managed/persistent
         entityManager.persist(course1);
         //Save to the DB
         entityManager.flush();
 
-        //This one will be also saved
+        //This one will be also saved soon
         course1.setName("Test course 1 new");
 
-        //Save to the DB
+        //Save to the DB course2 and name of course1
         Course course2 = new Course("Test course 2");
         entityManager.persist(course2);
         entityManager.flush();

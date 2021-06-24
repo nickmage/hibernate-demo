@@ -43,16 +43,33 @@ public class Student {
         this.name = name;
     }
 
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Student course = (Student) o;
-        return getId().equals(course.getId()) && getName().equals(course.getName());
+        Student student = (Student) o;
+        return getId().equals(student.getId()) && getName().equals(student.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName());
+        return Objects.hash(getId(), getName(), getPassport());
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", passport=" + passport +
+                '}';
     }
 }

@@ -4,6 +4,7 @@ import com.nickmage.hibernate.demo.hibernate.entity.Course;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,6 +12,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 
 @SpringBootTest
+@DirtiesContext
 public class CourseRepositoryTest {
 
     private static final Long PRE_SAVED_ID_TO_FIND = 1001L;

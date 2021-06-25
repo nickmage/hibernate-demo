@@ -5,7 +5,10 @@ import com.nickmage.hibernate.demo.hibernate.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -22,6 +25,8 @@ public class StudentRepositoryTest {
 
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     @Test
     void shouldFindStudent() {
@@ -54,6 +59,7 @@ public class StudentRepositoryTest {
 
     @Test
     @Transactional
+    @Rollback
     void shouldUpdateStudent() {
         Student studentToUpdate = studentRepository.findById(PRE_SAVED_ID_TO_UPDATE);
         studentToUpdate.setName(COURSE_NAME_TO_SAVE);
@@ -69,4 +75,21 @@ public class StudentRepositoryTest {
         assertThat(studentRepository.findById(PRE_SAVED_ID_TO_DELETE), is(nullValue()));
     }
 
+    @Test
+    @Transactional //important for lazy fetch type
+    void shouldRetrieveStudentWithPassport() {
+        Student student = studentRepository.findById(PRE_SAVED_ID_TO_FIND);
+        System.err.println(student);
+        System.err.println(student.getPassport());
+        //assertThat(studentRepository.findById(PRE_SAVED_ID_TO_DELETE), is(nullValue()));
+    }
+
+    @Test
+    @Transactional
+    void shouldRetrievePassportWithStudent() {
+        Passport passport = entityManager.find(Passport.class, 2001L);
+        System.err.println(passport);
+        System.err.println(passport.getStudent());
+        //assertThat(studentRepository.findById(PRE_SAVED_ID_TO_DELETE), is(nullValue()));
+    }
 }

@@ -1,14 +1,18 @@
 package com.nickmage.hibernate.demo.hibernate.repository;
 
 import com.nickmage.hibernate.demo.hibernate.entity.Course;
+import com.nickmage.hibernate.demo.hibernate.entity.Review;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 
 @SpringBootTest
@@ -68,4 +72,14 @@ public class CourseRepositoryTest {
         assertThat(courseRepository.findById(PRE_SAVED_ID_TO_DELETE), is(nullValue()));
     }
 
+    @Test
+    @Transactional
+    void shouldRetrieveCourseReviews() {
+        Course course = courseRepository.findById(PRE_SAVED_ID_TO_FIND);
+
+        List<Review> reviews = course.getReviews();
+
+        assertThat(reviews, is(notNullValue()));
+        assertThat(reviews.size(), is(2));
+    }
 }

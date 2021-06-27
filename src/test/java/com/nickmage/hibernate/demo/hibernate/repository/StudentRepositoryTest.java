@@ -56,7 +56,7 @@ public class StudentRepositoryTest {
         Student studentToCreate = new Student(COURSE_NAME_TO_SAVE);
         studentRepository.save(studentToCreate);
 
-        assertThat(studentRepository.findById(1L), is(studentToCreate));
+        assertThat(studentRepository.findById(studentToCreate.getId()), is(studentToCreate));
     }
 
     @Test

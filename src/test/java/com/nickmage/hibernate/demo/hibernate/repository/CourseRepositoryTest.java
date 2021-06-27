@@ -47,7 +47,7 @@ public class CourseRepositoryTest {
         Course courseToCreate = new Course(COURSE_NAME_TO_SAVE);
         courseRepository.save(courseToCreate);
 
-        assertThat(courseRepository.findById(1L), is(courseToCreate));
+        assertThat(courseRepository.findById(courseToCreate.getId()), is(courseToCreate));
     }
 
     @Test

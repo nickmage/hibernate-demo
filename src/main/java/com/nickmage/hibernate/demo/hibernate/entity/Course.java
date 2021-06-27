@@ -7,8 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,10 +19,16 @@ public class Course {
     @Id
     @GeneratedValue
     private Long id;
+
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "course")
+    private List<Review> reviews;
+
     @UpdateTimestamp
     private LocalDateTime lastUpdatedAt;
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -62,6 +70,18 @@ public class Course {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void addReview(Review review) {
+        reviews.add(review);
+    }
+
+    public void removeReview(Review review) {
+        reviews.remove(review);
     }
 
     @Override

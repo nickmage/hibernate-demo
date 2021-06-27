@@ -1,6 +1,7 @@
 package com.nickmage.hibernate.demo.hibernate.repository;
 
 import com.nickmage.hibernate.demo.hibernate.entity.Course;
+import com.nickmage.hibernate.demo.hibernate.entity.Review;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +40,15 @@ public class CourseRepository {
 
     public void deleteById(Long id) {
         entityManager.remove(findById(id));
+    }
+
+    @Transactional
+    public void addReviewsToCourse(Long courseId, List<Review> reviews) {
+        Course course = findById(courseId);
+        reviews.forEach(review -> {
+            review.setCourse(course);
+            entityManager.persist(review);
+        });
     }
 
     @Transactional

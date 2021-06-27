@@ -1,5 +1,6 @@
 package com.nickmage.hibernate.demo.hibernate.repository;
 
+import com.nickmage.hibernate.demo.hibernate.entity.Course;
 import com.nickmage.hibernate.demo.hibernate.entity.Passport;
 import com.nickmage.hibernate.demo.hibernate.entity.Student;
 import org.junit.jupiter.api.Test;
@@ -11,8 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 
 @SpringBootTest
@@ -81,17 +85,24 @@ public class StudentRepositoryTest {
     @Transactional //important for lazy fetch type
     void shouldRetrieveStudentWithPassport() {
         Student student = studentRepository.findById(PRE_SAVED_ID_TO_FIND);
-        System.err.println(student);
-        System.err.println(student.getPassport());
-        //assertThat(studentRepository.findById(PRE_SAVED_ID_TO_DELETE), is(nullValue()));
+        assertThat(student, is(notNullValue()));
+        assertThat(student.getPassport(), is(notNullValue()));
     }
 
     @Test
     @Transactional
     void shouldRetrievePassportWithStudent() {
         Passport passport = entityManager.find(Passport.class, 2001L);
-        System.err.println(passport);
-        System.err.println(passport.getStudent());
-        //assertThat(studentRepository.findById(PRE_SAVED_ID_TO_DELETE), is(nullValue()));
+        assertThat(passport, is(notNullValue()));
+        assertThat(passport.getStudent(), is(notNullValue()));
+    }
+
+    @Test
+    @Transactional
+    void shouldRetrieveCourseOfStudents() {
+        Student student = studentRepository.findById(PRE_SAVED_ID_TO_FIND);
+        List<Course> courses = student.getCourses();
+        assertThat(courses, is(notNullValue()));
+        assertThat(courses.size(), is(1));
     }
 }

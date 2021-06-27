@@ -2,12 +2,14 @@ package com.nickmage.hibernate.demo.hibernate.repository;
 
 import com.nickmage.hibernate.demo.hibernate.entity.Course;
 import com.nickmage.hibernate.demo.hibernate.entity.Review;
+import com.nickmage.hibernate.demo.hibernate.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,6 +29,8 @@ public class CourseRepositoryTest {
 
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     @Test
     void shouldFindCourse() {
@@ -81,5 +85,14 @@ public class CourseRepositoryTest {
 
         assertThat(reviews, is(notNullValue()));
         assertThat(reviews.size(), is(2));
+    }
+
+    @Test
+    @Transactional
+    void shouldRetrieveStudentsOfCourse() {
+        Course course = entityManager.find(Course.class, PRE_SAVED_ID_TO_FIND);
+        List<Student> students = course.getStudents();
+        assertThat(students, is(notNullValue()));
+        assertThat(students.size(), is(2));
     }
 }

@@ -1,5 +1,6 @@
 package com.nickmage.hibernate.demo.hibernate.repository;
 
+import com.nickmage.hibernate.demo.hibernate.entity.Course;
 import com.nickmage.hibernate.demo.hibernate.entity.Passport;
 import com.nickmage.hibernate.demo.hibernate.entity.Student;
 import org.springframework.stereotype.Repository;
@@ -36,6 +37,11 @@ public class StudentRepository {
 
     public void deleteById(Long id) {
         entityManager.remove(findById(id));
+    }
+
+    public void addCourseToStudent(Long studentId, Course course) {
+        Student student = findById(studentId);
+        student.getCourses().add(course);
     }
 
     @Transactional

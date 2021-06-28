@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
@@ -20,6 +23,10 @@ public class CourseRepository {
     }
 
     public List<Course> findAll() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Course> query = criteriaBuilder.createQuery(Course.class);
+        Root<Course> root = query.from(Course.class);
+        entityManager.createQuery(query.select(root)).getResultList();
         return entityManager.createQuery("select c from Course c", Course.class).getResultList();
     }
 
@@ -32,6 +39,11 @@ public class CourseRepository {
     }
 
     public List<Course> findCoursesWithoutStudents() {
+        /*CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Course> query = criteriaBuilder.createQuery(Course.class);
+        Root<Course> root = query.from(Course.class);
+        query.where(criteriaBuilder.isEmpty(root.get("students")));
+        entityManager.createQuery(query.select(root)).getResultList();*/
         TypedQuery<Course> query = entityManager.createQuery("select c from Course c where c.students is empty", Course.class);
         return query.getResultList();
     }
@@ -48,6 +60,11 @@ public class CourseRepository {
     }
 
     public List<Course> findCoursesByNamePattern(String pattern) {
+        /*CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Course> query = criteriaBuilder.createQuery(Course.class);
+        Root<Course> root = query.from(Course.class);
+        query.where(criteriaBuilder.like(root.get("name"), pattern));
+        entityManager.createQuery(query.select(root)).getResultList();*/
         TypedQuery<Course> query = entityManager.createQuery("select c from Course c where c.name like :pattern", Course.class);
         query.setParameter("pattern", pattern);
         return query.getResultList();

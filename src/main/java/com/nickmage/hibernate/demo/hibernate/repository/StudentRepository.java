@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -33,6 +34,12 @@ public class StudentRepository {
             student = entityManager.merge(student);
         }
         return student;
+    }
+
+    public List<Student> findCoursesByPassportNumberPattern(String pattern) {
+        TypedQuery<Student> query = entityManager.createQuery("select s from Student s where s.passport.number like :pattern", Student.class);
+        query.setParameter("pattern", pattern);
+        return query.getResultList();
     }
 
     public void deleteById(Long id) {

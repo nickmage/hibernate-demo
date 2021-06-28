@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -25,9 +26,31 @@ public class CourseRepository {
     public Course findById(Long id) {
         //Alternative findById query
         /*Query query = entityManager.createNativeQuery("select * from course where id = ?/:id", Course.class);
-        Query.setParameter(1/"id", 1001L);
+        query.setParameter(1/"id", 1001L);
         return query.getResultList();*/
         return entityManager.find(Course.class, id);
+    }
+
+    public List<Course> findCoursesWithoutStudents() {
+        TypedQuery<Course> query = entityManager.createQuery("select c from Course c where c.students is empty", Course.class);
+        return query.getResultList();
+    }
+
+    public List<Course> findCoursesWithStudentsMoreThan(int quantity) {
+        TypedQuery<Course> query = entityManager.createQuery("select c from Course c where size(c.students) >= :quantity", Course.class);
+        query.setParameter("quantity", quantity);
+        return query.getResultList();
+    }
+
+    public List<Course> findCoursesOrderByStudents() {
+        TypedQuery<Course> query = entityManager.createQuery("select c from Course c order by size(c.students)", Course.class);
+        return query.getResultList();
+    }
+
+    public List<Course> findCoursesByNamePattern(String pattern) {
+        TypedQuery<Course> query = entityManager.createQuery("select c from Course c where c.name like :pattern", Course.class);
+        query.setParameter("pattern", pattern);
+        return query.getResultList();
     }
 
     public Course save(Course course) {

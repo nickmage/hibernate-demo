@@ -112,4 +112,11 @@ public class Course {
     public int hashCode() {
         return Objects.hash(getId(), getName());
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

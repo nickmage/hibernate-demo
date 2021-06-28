@@ -23,7 +23,7 @@ public class Student {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY) // for testing purpose
     private Passport passport;
 
     @ManyToMany

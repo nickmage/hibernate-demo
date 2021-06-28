@@ -2,6 +2,7 @@ package com.nickmage.hibernate.demo.hibernate.repository;
 
 import com.nickmage.hibernate.demo.hibernate.entity.Course;
 import com.nickmage.hibernate.demo.hibernate.entity.Review;
+import com.nickmage.hibernate.demo.hibernate.entity.Student;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +50,11 @@ public class CourseRepository {
             review.setCourse(course);
             entityManager.persist(review);
         });
+    }
+
+    public void addStudentToCourse(Long courseId, Student student) {
+        Course course = findById(courseId);
+        student.getCourses().add(course);
     }
 
     @Transactional

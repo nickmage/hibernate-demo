@@ -95,4 +95,11 @@ public class CourseRepositoryTest {
         assertThat(students, is(notNullValue()));
         assertThat(students.size(), is(2));
     }
+
+    @Test
+    void shouldNotReturnCourseWithCache() {
+        Course course = courseRepository.findByIdWithCache(PRE_SAVED_ID_TO_FIND);
+
+        assertThat(course, is(notNullValue()));
+    }
 }

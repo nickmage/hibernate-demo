@@ -1,8 +1,10 @@
 package com.nickmage.hibernate.demo.hibernate.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +18,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "course")
+@Cacheable
 public class Course {
     @Id
     @GeneratedValue
@@ -24,9 +27,10 @@ public class Course {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "courses")
     private List<Student> students;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "course")
     private List<Review> reviews;
 

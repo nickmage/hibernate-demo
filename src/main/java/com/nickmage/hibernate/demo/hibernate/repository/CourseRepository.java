@@ -139,4 +139,15 @@ public class CourseRepository {
         entityManager.refresh(course1);
         System.err.println("After refresh: " + course1.getName());
     }
+
+    //@Transactional
+    public Course findByIdWithCache(Long id) {
+        //Will execute select query
+        Course course = findById(1001L);
+        System.err.println(course);
+        //Will use cached value, query won't be executed unless it is within the same transaction
+        course = findById(1001L);
+        System.err.println(course);
+        return course;
+    }
 }

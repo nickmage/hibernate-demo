@@ -17,3 +17,15 @@ insert into review (id, rating, description, course_id) values ( 3003, '5', 'Gre
 insert into student_course (student_id, course_id) values ( 1001, 1001);
 insert into student_course (student_id, course_id) values ( 1002, 1001);
 insert into student_course (student_id, course_id) values ( 1003, 1002);
+
+insert into visa (id, country_name) values (1001, 'Germany');
+insert into visa (id, country_name) values (1002, 'USA');
+insert into visa (id, country_name) values (1003, 'Japan');
+
+insert into tourist (id, name) values ( 1001, 'Leon');
+insert into tourist (id, name) values ( 1002, 'Victor');
+insert into tourist (id, name) values ( 1003, 'Peter');
+
+insert into tourist_visa (tourist_id, visa_id) values ( 1001, 1001);
+insert into tourist_visa (tourist_id, visa_id) values ( 1002, 1001);
+insert into tourist_visa (tourist_id, visa_id) values ( 1003, 1002);

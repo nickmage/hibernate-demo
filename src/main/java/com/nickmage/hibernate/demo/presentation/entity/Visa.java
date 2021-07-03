@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -14,7 +15,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "visa")
-@Cacheable
+//@Cacheable
 public class Visa {
 
     @Id
@@ -25,7 +26,7 @@ public class Visa {
     private String countryName;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "visas")
+    @ManyToMany(mappedBy = "visas", fetch = FetchType.LAZY)
     private List<Tourist> tourists;
 
     public Visa() {

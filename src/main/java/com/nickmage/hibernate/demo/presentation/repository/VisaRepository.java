@@ -5,6 +5,7 @@ import com.nickmage.hibernate.demo.presentation.entity.Visa;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -19,6 +20,18 @@ public class VisaRepository {
 
     public List<Visa> findAll() {
         return entityManager.createQuery("select v from Visa v", Visa.class).getResultList();
+    }
+
+    public List<Visa> findAllWithGraph() {
+        EntityGraph<Visa> graph = entityManager.createEntityGraph(Visa.class);
+        graph.addSubgraph("tourists");
+        return entityManager.createQuery("select v from Visa v", Visa.class)
+                .setHint("javax.persistence.loadgraph", graph)
+                .getResultList();
+    }
+
+    public List<Visa> findAllWithJoinFetch() {
+        return entityManager.createQuery("select v from Visa v join fetch v.tourists", Visa.class).getResultList();
     }
 
     public Visa findById(Long id) {
@@ -52,7 +65,7 @@ public class VisaRepository {
         entityManager.flush();
 
         //This one will be also saved soon
-        visa1.setCountryName("Test country new");
+        visa1.setCountryName("Test visa 1 updated");
 
         //Save to the DB visa2 and name of visa1
         Visa visa2 = new Visa("Test visa 2");
@@ -63,22 +76,22 @@ public class VisaRepository {
         entityManager.detach(visa2);
 
         //Will not be saved
-        visa2.setCountryName("Test visa 2 new");
+        visa2.setCountryName("Test visa 2 updated");
         entityManager.flush();
     }
 
-    @Transactional
+    //@Transactional
     public void implicitUpdateWithRefresh() {
         //Request to create a record
-        Visa visa1 = new Visa("Test visa 1");
+        Visa visa1 = new Visa("Test visa refresh 1");
         entityManager.persist(visa1);
-        Visa visa2 = new Visa("Test visa 2");
+        Visa visa2 = new Visa("Test visa refresh 2");
         entityManager.persist(visa2);
 
         //Send changes to the DB
         entityManager.flush();
 
-        visa1.setCountryName("Test visa 1 new");
+        visa1.setCountryName("Test visa refresh 1 updated");
 
         //Refresh record
         System.err.println("Before refresh: " + visa1.getCountryName());
@@ -86,13 +99,12 @@ public class VisaRepository {
         System.err.println("After refresh: " + visa1.getCountryName());
     }
 
-    //@Transactional
     public Visa findByIdWithCache(Long id) {
         //Will execute select query
-        Visa visa = findById(1001L);
+        Visa visa = findById(id);
         System.err.println(visa);
-        //Will use cached value, query won't be executed unless it is within the same transaction
-        visa = findById(1001L);
+        //Will use cached value
+        visa = findById(id);
         System.err.println(visa);
         return visa;
     }

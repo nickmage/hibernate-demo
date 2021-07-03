@@ -1,3 +1,15 @@
+##Plan
+1. Entity types
+2. Entity manager and persistence context
+3. @Transactional
+4.
+5.
+N + 1
+L1, L2 cache
+Dirty checking mechanism
+
+
+
 ##Tips
 1. To execute an SQL script we can use schema.sql to set up some initial data.
 2. @PersistenceContext 

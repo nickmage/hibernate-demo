@@ -27,6 +27,11 @@ public class VisaRepositoryTest {
     }
 
     @Test
+    void persistenceContextRelationshipTest() {
+        visaRepository.implicitUpdateWithRelationship(1001L);
+    }
+
+    @Test
     void persistenceContextWithRefreshTest() {
         visaRepository.implicitUpdateWithRefresh();
     }

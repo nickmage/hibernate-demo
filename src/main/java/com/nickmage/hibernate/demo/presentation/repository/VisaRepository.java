@@ -80,6 +80,12 @@ public class VisaRepository {
         entityManager.flush();
     }
 
+    @Transactional
+    public void implicitUpdateWithRelationship(Long id) {
+        List <Tourist> tourists = entityManager.find(Visa.class, id).getTourists();
+        tourists.get(0).setName("abc");
+    }
+
     //@Transactional
     public void implicitUpdateWithRefresh() {
         //Request to create a record
